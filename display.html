@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Credentials</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+        .info {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .info span {
+            font-weight: bold;
+        }
+        .image-preview {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Credentials</h1>
+        <div class="info"><span>Name:</span> <span id="displayName"></span></div>
+        <div class="info"><span>Age:</span> <span id="displayAge"></span></div>
+        <div class="info"><span>Email:</span> <span id="displayEmail"></span></div>
+        <div class="info"><span>Location:</span> <span id="displayLocation"></span></div>
+        <div class="info"><span>Occupation:</span> <span id="displayOccupation"></span></div>
+        <div class="image-preview">
+            <h3>Uploaded Image:</h3>
+            <img id="displayImage" alt="Uploaded Image" />
+        </div>
+    </div>
+
+    <script>
+        // Retrieve data from localStorage
+        document.getElementById('displayName').textContent = localStorage.getItem('name');
+        document.getElementById('displayAge').textContent = localStorage.getItem('age');
+        document.getElementById('displayEmail').textContent = localStorage.getItem('email');
+        document.getElementById('displayLocation').textContent = localStorage.getItem('location');
+        document.getElementById('displayOccupation').textContent = localStorage.getItem('occupation');
+
+        const imageDataUrl = localStorage.getItem('image');
+        if (imageDataUrl) {
+            document.getElementById('displayImage').src = imageDataUrl;
+        } else {
+            document.getElementById('displayImage').alt = 'No image uploaded';
+        }
+    </script>
+</body>
+</html>

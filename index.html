@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLOgetID</title>
+    <style>
+      body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: azure;
+      }
+      
+
+      
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group input[type="file"] {
+            padding: 0;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Enter Your Credentials</h1>
+        <form id="credentialForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation:</label>
+                <input type="text" id="occupation" name="occupation" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('credentialForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const form = new FormData(event.target);
+            const imageFile = form.get('image');
+
+            // Convert the image file to a Data URL
+            const reader = new FileReader();
+            reader.onload = function() {
+                const imageDataUrl = reader.result;
+
+                // Store data in localStorage
+                localStorage.setItem('name', form.get('name'));
+                localStorage.setItem('age', form.get('age'));
+                localStorage.setItem('email', form.get('email'));
+                localStorage.setItem('location', form.get('location'));
+                localStorage.setItem('occupation', form.get('occupation'));
+                localStorage.setItem('image', imageDataUrl);
+
+                // Redirect to display.html
+                window.location.href = 'display.html';
+            };
+
+            if (imageFile) {
+                reader.readAsDataURL(imageFile);
+            }
+        };
+        function validateAge() {
+            var age = document.getElementById("age").value;
+            var minAge = 18; // minimum age limit
+            var maxAge = 36; // maximum age limit
+            if (age < minAge || age > maxAge) {
+                alert("Age must be between " + minAge + " and " + maxAge);
+                return false; // prevent form submission
+            }
+            return true; // allow form submission
+        }
+    </script>
+</body>
+</html>
